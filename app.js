@@ -1,38 +1,48 @@
+//  api key : c89d413c640015ab57dba2fd03f193b9
+
 $(document).ready(function() {
-  /* db */
-  /* raw weather object from api */
-  var cityWeather =
-    "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22";
-
-  /* variables */
-  /* parsed weather object */
-
-  /* utility functions */
-  /* get raw data */
-  /* parse raw data */
-  /* render parsed data */
-
-  /* event functions */
-  /* search button click */
-  /* have city name  */
-  /* send city name to a openweather api */
-  /* set the weather info to the object returned (see raw data) */
-
-  /* init */
-  $.ajax({
-    url: cityWeather,
-    method: "GET"
-  }).then(function(response) {
-    // Create and save a reference to new empty table row
-    console.log(response);
-  });
-  /* check local storage for history of cities and render */
-  $(document).ready(function() {
+  function searchCity(city) {
+    var queryURL =
+      "https:api.openweathermap.org/data/2.5/weather?q=" +
+      city +
+      "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
     $.ajax({
-      url: "https://openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+      url: queryURL,
       method: "GET"
     }).then(function(response) {
       console.log(response);
-      /* parse data */
+      var cityName = response.name;
+      var tempP = response.main.temp;
+      var humidityP = response.main.humidity;
+      $("#cityName").html(cityName);
+      $("#temp").html(`Temperature : ${tempP}`);
+      $("#humid").html(`Humidity : ${humidityP}`);
     });
+  }
+  // var weatherInfo = parseWeatherInfo(response);
+  // $("#currentWeather").append(weatherInfo);
+
+  // function parseWeatherInfo(response) {
+  //   //p factory
+  //   var weatherDiv = $("<div>");
+  //   //create and save weather references
+  //   var cityName = $(`<h3> ${response.name} </h3>`);
+  //   var tempP = $(`<p> Temperature : ${response.main.temp}</p>`);
+  //   var humidityP = $(`<p> Humidity : ${response.main.humidity}</p>`);
+  //   //append elements to div
+  //   weatherDiv.append(cityName);
+  //   weatherDiv.append(tempP);
+  //   weatherDiv.append(humidityP);
+
+  //   return weatherDiv;
+  // }
+
+  $("#select-city").on("click", function(event) {
+    event.preventDefault();
+    var city = $("#weather-imput")
+      .val()
+      .trim();
+    console.log("city name  " + city);
+    searchCity(city);
+  });
 });

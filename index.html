@@ -1,18 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
   </head>
   </head>
   <body>
     <!-- header (snazy name)-->
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+    <div class="row">
+      <div class="col-md-3">
+          <input  type="text" id="weather-imput" placeholder="city name" /><br />
+          <input id="select-city"  type="submit" value="Current Weather"/>
+      <ul></ul>
+     </div>
+   
     <!-- search input box (event on mag glass) -->
     <!-- list of previous searches (event on history click) -->
     <!-- current dorky weather status on the city -->
+    <div class="col-md-9">
+      <div id="currentWeather">
+        <h3 id="cityName">City Name</h3>
+        <p id="temp">Temp :</p>
+        <p id="humid">humidity :</p>
+        <p id="windSpeed">wind speed :</p>
+      </div>
+      <div>
+        <h3> 5-Day Forecast</h3>
+      </div>
+
+
+    </div> 
+   </div>
     <!-- 5 day weather outlook -->
     <script src="app.js"></script>
   </body>
