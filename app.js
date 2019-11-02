@@ -1,48 +1,106 @@
 //  api key : c89d413c640015ab57dba2fd03f193b9
 
-$(document).ready(function() {
-  function searchCity(city) {
-    var queryURL =
-      "https:api.openweathermap.org/data/2.5/weather?q=" +
-      city +
-      "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
-      var cityName = response.name;
-      var tempP = response.main.temp;
-      var humidityP = response.main.humidity;
-      $("#cityName").html(cityName);
-      $("#temp").html(`Temperature : ${tempP}`);
-      $("#humid").html(`Humidity : ${humidityP}`);
-    });
-  }
-  // var weatherInfo = parseWeatherInfo(response);
-  // $("#currentWeather").append(weatherInfo);
+var retrievedData = JSON.parse(localStorage.getItem("savedCities"));
+var cities = retrievedData || [];
+var city = "";
 
-  // function parseWeatherInfo(response) {
-  //   //p factory
-  //   var weatherDiv = $("<div>");
-  //   //create and save weather references
-  //   var cityName = $(`<h3> ${response.name} </h3>`);
-  //   var tempP = $(`<p> Temperature : ${response.main.temp}</p>`);
-  //   var humidityP = $(`<p> Humidity : ${response.main.humidity}</p>`);
-  //   //append elements to div
-  //   weatherDiv.append(cityName);
-  //   weatherDiv.append(tempP);
-  //   weatherDiv.append(humidityP);
-
-  //   return weatherDiv;
-  // }
-
-  $("#select-city").on("click", function(event) {
-    event.preventDefault();
-    var city = $("#weather-imput")
-      .val()
-      .trim();
-    console.log("city name  " + city);
-    searchCity(city);
+function searchCity(city) {
+  var queryURL =
+    "https:api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+    console.log("general", response);
+    var cityName = response.name;
+    var tempP = response.main.temp;
+    var humidityP = response.main.humidity;
+    var windSpeedP = response.wind.speed;
+    $("#cityName").html(cityName);
+    $("#temp").html(`Temperature : ${tempP}`);
+    $("#humid").html(`Humidity : ${humidityP}`);
+    $("#windSpeed").html(`Wind Speed :${windSpeedP}`);
   });
+}
+function forecast(city) {
+  var queryUrlF =
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    city +
+    "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
+
+  $.ajax({
+    url: queryUrlF,
+    method: "GET"
+  }).then(function(response_two) {
+    console.log("forecast", response_two);
+    displayForecast(response_two);
+  });
+}
+
+function displayForecast(response_two) {
+  for (i = 5; i < response_two.list.length; i += 8) {
+    forecastDiv = $(
+      `<div class="forecast-box shadow-light">
+            <h2>
+              ${response_two.city.name}
+            </h2>
+            <div>
+              Temperature: ${response_two.list[i].main.temp}°F
+            </div>
+            <div>
+              Humidity: ${response_two.list[i].main.humidity}%
+            </div>
+            <div>
+              Wind: ${response_two.list[i].wind.speed}MPH
+            </div>
+        </div>`
+    );
+    $("#forecastDisplay").append(forecastDiv);
+    console.log("forcastDiv", forecastDiv);
+  }
+}
+
+function renderButtons() {
+  //delete cities prior to addin new cities
+  $("#buttonStorage").empty();
+
+  //looping through cities
+  for (i = 0; i < cities.length; i++) {
+    //generate button for each item in array
+    var a = $("<button><br/>");
+    //add class
+    a.addClass("city");
+    // add attribute
+    a.attr("data-name", cities[i]);
+    a.text(cities[i]);
+    $("#buttonStorage").prepend(a);
+  }
+}
+
+//assign var city and push to array
+$("#select-city").on("click", function(event) {
+  event.preventDefault();
+  city = $("#weather-imput")
+    .val()
+    .trim();
+  searchCity(city);
+  forecast(city);
+  // add city to array
+  cities.push(city);
+  localStorage.setItem("savedCities", JSON.stringify(cities));
+
+  renderButtons();
 });
+
+// make click event that will call former city back into search funtion
+
+renderButtons();
+$(".city").on("click", function() {
+  city = $(this).data("name");
+  searchCity(city);
+  forecast(city);
+});
+
+//fucntion for 5 day forecast
