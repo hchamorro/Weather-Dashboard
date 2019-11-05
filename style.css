@@ -13,9 +13,15 @@
 .bgc-trnsorange {
   background-color: rgb(255, 115, 0, 0.6);
 }
+.bgc-white {
+  background-color: white;
+}
 
 .bd-n {
   border: none;
+}
+.bds-o {
+  border-style: outset;
 }
 .bdrs-50 {
   border-radius: 50%;
@@ -74,8 +80,20 @@
   font-family: "Turret Road", cursive;
 }
 
+.ff-montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
 .ff-nunito {
   font-family: "Nunito", sans-serif;
+}
+
+.ff-robotoMono {
+  font-family: "Roboto Mono", monospace;
+}
+
+.ff-slabo {
+  font-family: "Slabo 27px", serif;
 }
 .fl-start {
   float: left;

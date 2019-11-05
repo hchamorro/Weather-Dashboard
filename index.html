@@ -11,14 +11,17 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous"
   />
+  <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap" rel="stylesheet">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="style.css" />
+
   
   <title>Weather Dashboard</title>
     
   </head>
   </head>
-  <body>
+  <body class="ff-slabo ">
     <!-- header (snazy name)-->
     <header  class="bgc-lav d-f jc-c p-1 ">
       <h1>Weather Dashboard</h1>
@@ -26,9 +29,11 @@
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-3">
+        <form>
           <input  type="text" id="weather-imput" placeholder="city name" />
           <input id="select-city"  type="submit" value="Current Weather"/>
-      <div id="buttonStorage"></div>
+        </form>
+          <div class="d-f fld-c" id="buttonStorage"></div>
      </div>
    
     <!-- search input box (event on mag glass) -->
@@ -37,13 +42,13 @@
     <div class="col-md-7">
       <div id="currentWeather">
         <h3 id="cityName">City Name</h3>
-        <p id="temp">Temperature :</p>
-        <p id="humid">Humidity :</p>
-        <p id="windSpeed">Wind Speed :</p>
+        <p id="temp">Temperature : </p>
+        <p id="humid">Humidity : </p>
+        <p id="windSpeed">Wind Speed : </p>
       </div>
       <div>
         <h3> 5-Day Forecast</h3>
-        <div id="forecastDisplay"></div>
+        <div class="d-f" id="forecastDisplay"></div>
       </div>
 
     </div> 

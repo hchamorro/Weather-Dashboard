@@ -13,15 +13,14 @@ function searchCity(city) {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    console.log("general", response);
     var cityName = response.name;
     var tempP = response.main.temp;
     var humidityP = response.main.humidity;
     var windSpeedP = response.wind.speed;
     $("#cityName").html(cityName);
-    $("#temp").html(`Temperature : ${tempP}`);
-    $("#humid").html(`Humidity : ${humidityP}`);
-    $("#windSpeed").html(`Wind Speed :${windSpeedP}`);
+    $("#temp").html(`Temperature : ${tempP} F`);
+    $("#humid").html(`Humidity : ${humidityP} %`);
+    $("#windSpeed").html(`Wind Speed : ${windSpeedP}mph`);
   });
 }
 function forecast(city) {
@@ -42,10 +41,8 @@ function forecast(city) {
 function displayForecast(response_two) {
   for (i = 5; i < response_two.list.length; i += 8) {
     forecastDiv = $(
-      `<div class="forecast-box shadow-light">
-            <h2>
-              ${response_two.city.name}
-            </h2>
+      `<div class="bds-o m-10px">
+            
             <div>
               Temperature: ${response_two.list[i].main.temp}°F
             </div>
@@ -57,8 +54,9 @@ function displayForecast(response_two) {
             </div>
         </div>`
     );
+    // $("#forecastDisplay").replaceWith(forecastDiv)
+
     $("#forecastDisplay").append(forecastDiv);
-    console.log("forcastDiv", forecastDiv);
   }
 }
 
@@ -69,7 +67,7 @@ function renderButtons() {
   //looping through cities
   for (i = 0; i < cities.length; i++) {
     //generate button for each item in array
-    var a = $("<button><br/>");
+    var a = $('<button class="bd-n bgc-white">');
     //add class
     a.addClass("city");
     // add attribute
@@ -93,7 +91,21 @@ $("#select-city").on("click", function(event) {
 
   renderButtons();
 });
+$("form").submit(function(event) {
+  event.preventDefault();
 
+  city = $("#weather-imput")
+    .val()
+    .trim();
+  searchCity(city);
+  forecast(city);
+  // add city to array
+  cities.push(city);
+  localStorage.setItem("savedCities", JSON.stringify(cities));
+
+  renderButtons();
+});
+// ma
 // make click event that will call former city back into search funtion
 
 renderButtons();
