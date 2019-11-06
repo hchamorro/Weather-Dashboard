@@ -39,6 +39,7 @@ function forecast(city) {
 }
 
 function displayForecast(response_two) {
+  $("#forecastDisplay").html("");
   for (i = 5; i < response_two.list.length; i += 8) {
     forecastDiv = $(
       `<div class="bds-o m-10px">
@@ -109,7 +110,7 @@ $("form").submit(function(event) {
 // make click event that will call former city back into search funtion
 
 renderButtons();
-$(".city").on("click", function() {
+$(document).on("click", ".city", function() {
   city = $(this).data("name");
   searchCity(city);
   forecast(city);
