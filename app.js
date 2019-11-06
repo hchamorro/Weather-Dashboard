@@ -1,5 +1,3 @@
-//  api key : c89d413c640015ab57dba2fd03f193b9
-
 var retrievedData = JSON.parse(localStorage.getItem("savedCities"));
 var cities = retrievedData || [];
 var city = "";
@@ -33,7 +31,6 @@ function forecast(city) {
     url: queryUrlF,
     method: "GET"
   }).then(function(response_two) {
-    console.log("forecast", response_two);
     displayForecast(response_two);
   });
 }
