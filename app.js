@@ -4,7 +4,7 @@ var city = "";
 
 function searchCity(city) {
   var queryURL =
-    "https:api.openweathermap.org/data/2.5/weather?q=" +
+    "//api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
   $.ajax({
@@ -23,7 +23,7 @@ function searchCity(city) {
 }
 function forecast(city) {
   var queryUrlF =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "//api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&units=imperial&appid=c89d413c640015ab57dba2fd03f193b9";
 
